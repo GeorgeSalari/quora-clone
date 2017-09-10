@@ -153,7 +153,7 @@ div#all_answers div#answer form button img{
 
 div#all_answers div#answer div#footer_answer div#answer_votes p#count_votes,
 div#footer_question div#question_votes p#question_count_votes,
-div#footer_question div#question_answers p#question_count_answers {
+div#footer_question div#question_views p#question_count_views {
   font-size:26px;
   padding-top:20px;
   line-height:26px;
@@ -163,7 +163,8 @@ div#footer_question div#question_answers p#question_count_answers {
 div#footer_question,
 div#footer_question div#question_votes,
 div#footer_question div#footer_question_form,
-div#footer_question div#question_answers {
+div#footer_question div#question_answers,
+div#footer_question div#question_views {
   display:inline-block;
 }
 
@@ -185,7 +186,12 @@ div#footer_question div#question_answers {
   padding:3px;
 }
 
+div#footer_question div#question_views {
+  margin-left:10px;
+}
+
 div#footer_question div#question_votes p,
+div#footer_question div#question_views p,
 div#footer_question div#question_answers p {
   margin:0;
   padding:0;
@@ -193,4 +199,7 @@ div#footer_question div#question_answers p {
 }
 
 div#footer_question div#question_answers p#question_count_answers {
-  padding-top:0;}
+  font-size:26px;
+  padding-top:0;
+  line-height:26px;
+}

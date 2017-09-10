@@ -11,4 +11,8 @@ class Question < ActiveRecord::Base
   def downvote_question
     self.update(votes_count: self.votes_count - 1)
   end
+
+  def increase_views
+    self.update(views_count: self.views_count + 1)
+  end
 end
