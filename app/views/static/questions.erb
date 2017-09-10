@@ -60,6 +60,14 @@
             <p id="question_count_votes"> <%= question.votes_count %></p>
             <p>votes</p>
           </div>
+          <div id="question_answers">
+            <p id="question_count_answers"> <%= question.answers.count %></p>
+            <p>answers</p>
+          </div>
+          <div id="question_views">
+            <p id="question_count_views"> <%= question.views_count %></p>
+            <p>views</p>
+          </div>
         </div>
       </div>
     <% end %>

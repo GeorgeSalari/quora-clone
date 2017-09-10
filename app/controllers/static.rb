@@ -13,7 +13,7 @@ get '/profile' do
 end
 
 get '/question' do
-  @all_questions = Question.all
+  @all_questions = Question.order("votes_count DESC")
   erb :"static/questions"
 end
 
@@ -25,6 +25,7 @@ end
 get '/user/:user_id/question/:question_id' do
   @question = Question.find(params[:question_id])
   @answers = @question.answers
+  @question.increase_views
   erb :"static/question_answers"
 end
 
