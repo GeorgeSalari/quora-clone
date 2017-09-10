@@ -1,4 +1,5 @@
-div#all_user_questions {
+div#all_user_questions,
+div#all_user_answers {
   display:block;
   margin:0;
   padding:0;
@@ -6,7 +7,8 @@ div#all_user_questions {
   padding-bottom:40px;
 }
 
-div#all_user_questions div#question {
+div#all_user_questions div#question,
+div#all_user_answers div#answer {
   margin-top:40px ;
   padding:20px 10px 10px 40px;
   display:inline-block;
@@ -18,7 +20,8 @@ div#all_user_questions div#question {
   box-shadow:2px 2px 0 #EFEFEF;
 }
 
-div#all_user_questions div#question div#title {
+div#all_user_questions div#question div#title,
+div#all_user_answers div#answer div#title {
   margin:0;
   padding:0;
   font-size:30px;

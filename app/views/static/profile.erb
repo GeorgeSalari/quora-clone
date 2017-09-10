@@ -39,6 +39,9 @@
     <div class="col-md-3" id='nav_menue'>
       <ul>
         <li>
+          <button>Add question</button>
+        </li>
+        <li>
           <form action="/user/<%= current_user.id%>/question" method="get">
             <input type="submit" value="My Questions">
           </form>
@@ -50,7 +53,9 @@
           <button>Delete question</button>
         </li>
         <li>
-          <button>My answers</button>
+          <form action="/answer/<%= current_user.id %>" method="get">
+            <input type="submit" value="My answers">
+          </form>
         </li>
         <li>
           <button>Edit answer</button>
@@ -75,6 +80,45 @@
           <input id="submit" type="submit" value="Add question">
         </form>
       </div>
+
+
+      <div id="edit_question">
+        <% if @all_user_questions %>
+          <% @all_user_questions.each do |question| %>
+            <div>
+              <%= "<p>#{question.title} </p>" %>
+              <button>Edit</button>
+              <div id="question_form" >
+                <form action="/question/<%= question.id %>" method="post">
+                  <input type="hidden" name="_method" value="patch">
+                  <input id="title" type="text" name="question[title]" value="<%= question.title%>">
+                  <textarea id="content" name="question[content]"><%= question.content%></textarea>
+                  <input id="submit" type="submit" value="Edit">
+                </form>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+
+      <div id="all_delete_question">
+        <% if @all_user_questions %>
+          <% @all_user_questions.each do |question| %>
+            <div>
+              <%= "<p>#{question.title} </p>" %>
+              <div id="delete_question" >
+                <form action="/question/<%= question.id %>" method="post">
+                  <input type="hidden" name="_method" value="delete">
+                  <input id="submit" type="submit" value="Delete">
+                </form>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+
       <div id="all_user_questions">
         <% if @all_user_questions %>
           <% @all_user_questions.each do |question| %>
@@ -91,6 +135,27 @@
           <% end %>
         <% end %>
       </div>
+
+
+      <div id="all_user_answers">
+        <% if @all_user_answers %>
+          <% @all_user_answers.each do |answer| %>
+            <div id="answer">
+              <div id='title'>
+                <%= "<p>#{answer.content} </p>" %>
+              </div>
+
+              <form action="/user/<%= current_user.id %>/question/<%= answer.question_id %>" method="get" id='open'>
+                <input type="submit" value="Open Answer">
+              </form>
+
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+
+
     </div>
   </div>
 

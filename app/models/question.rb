@@ -15,4 +15,14 @@ class Question < ActiveRecord::Base
   def increase_views
     self.update(views_count: self.views_count + 1)
   end
+
+  def destroy_all
+    answers = self.answers
+    answers.each do |answer|
+      answer.answer_votes.destroy_all
+    end
+    answers.destroy_all
+    self.question_votes.destroy_all
+    self.destroy
+  end
 end

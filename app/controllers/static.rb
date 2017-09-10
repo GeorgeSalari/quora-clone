@@ -29,6 +29,11 @@ get '/user/:user_id/question/:question_id' do
   erb :"static/question_answers"
 end
 
+get '/answer/:user_id' do
+  @all_user_answers = User.find(params[:user_id]).answers
+  erb :"static/profile"
+end
+
 post '/user' do
   user = User.new(params[:user])
   if user.save
@@ -125,4 +130,13 @@ post '/answer_downvote' do
   else
     redirect '/profile'
   end
+end
+
+patch '/question/:id' do
+  Question.find(params[:id]).update(params[:question])
+end
+
+delete '/question/:id' do
+  question = Question.find(params[:id])
+  question.destroy_all
 end
