@@ -39,6 +39,9 @@
     <div class="col-md-3" id='nav_menue'>
       <ul>
         <li>
+          <button>Add question</button>
+        </li>
+        <li>
           <form action="/user/<%= current_user.id%>/question" method="get">
             <input type="submit" value="My Questions">
           </form>
@@ -75,6 +78,26 @@
           <input id="submit" type="submit" value="Add question">
         </form>
       </div>
+
+      <div id="edit_question">
+        <% if @all_user_questions %>
+          <% @all_user_questions.each do |question| %>
+            <div>
+              <%= "<p>#{question.title} </p>" %>
+              <button>Edit</button>
+              <div id="question_form" >
+                <form action="/question/<%= question.id %>" method="post">
+                  <input type="hidden" name="_method" value="patch">
+                  <input id="title" type="text" name="question[title]" value="<%= question.title%>">
+                  <textarea id="content" name="question[content]"><%= question.content%></textarea>
+                  <input id="submit" type="submit" value="Edit">
+                </form>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
       <div id="all_user_questions">
         <% if @all_user_questions %>
           <% @all_user_questions.each do |question| %>

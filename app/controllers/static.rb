@@ -126,3 +126,7 @@ post '/answer_downvote' do
     redirect '/profile'
   end
 end
+
+patch '/question/:id' do
+  Question.find(params[:id]).update(params[:question])
+end
