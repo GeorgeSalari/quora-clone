@@ -152,7 +152,8 @@ div#all_answers div#answer form button img{
 }
 
 div#all_answers div#answer div#footer_answer div#answer_votes p#count_votes,
-div#footer_question div#question_votes p#question_count_votes {
+div#footer_question div#question_votes p#question_count_votes,
+div#footer_question div#question_answers p#question_count_answers {
   font-size:26px;
   padding-top:20px;
   line-height:26px;
@@ -161,7 +162,8 @@ div#footer_question div#question_votes p#question_count_votes {
 
 div#footer_question,
 div#footer_question div#question_votes,
-div#footer_question div#footer_question_form {
+div#footer_question div#footer_question_form,
+div#footer_question div#question_answers {
   display:inline-block;
 }
 
@@ -176,8 +178,19 @@ div#footer_question div#question_votes {
   margin-left:150px;
 }
 
-div#footer_question div#question_votes p {
+div#footer_question div#question_answers {
+  position:relative;
+  margin-left:10px;
+  background-color:#d9d9d9;
+  padding:3px;
+}
+
+div#footer_question div#question_votes p,
+div#footer_question div#question_answers p {
   margin:0;
   padding:0;
   color:#0E2895;
 }
+
+div#footer_question div#question_answers p#question_count_answers {
+  padding-top:0;}
