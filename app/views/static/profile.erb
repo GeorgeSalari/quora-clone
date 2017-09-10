@@ -79,6 +79,7 @@
         </form>
       </div>
 
+
       <div id="edit_question">
         <% if @all_user_questions %>
           <% @all_user_questions.each do |question| %>
@@ -97,6 +98,24 @@
           <% end %>
         <% end %>
       </div>
+
+
+      <div id="all_delete_question">
+        <% if @all_user_questions %>
+          <% @all_user_questions.each do |question| %>
+            <div>
+              <%= "<p>#{question.title} </p>" %>
+              <div id="delete_question" >
+                <form action="/question/<%= question.id %>" method="post">
+                  <input type="hidden" name="_method" value="delete">
+                  <input id="submit" type="submit" value="Delete">
+                </form>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
 
       <div id="all_user_questions">
         <% if @all_user_questions %>

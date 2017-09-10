@@ -130,3 +130,8 @@ end
 patch '/question/:id' do
   Question.find(params[:id]).update(params[:question])
 end
+
+delete '/question/:id' do
+  question = Question.find(params[:id])
+  question.destroy_all
+end
