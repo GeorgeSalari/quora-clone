@@ -8,6 +8,8 @@ end
 
 get '/profile' do
   if logged_in?
+    @all_user_questions = Question.where(user_id: current_user.id)
+    @all_user_answers = User.find(current_user.id).answers
     erb :"static/profile"
   end
 end
@@ -17,10 +19,11 @@ get '/question' do
   erb :"static/questions"
 end
 
-get '/user/:id/question' do
-  @all_user_questions = Question.where(user_id: params[:id])
-  erb :"static/profile"
-end
+# get '/user/:id/question' do
+#   @all_user_questions = Question.where(user_id: params[:id])
+#   # @all_user_questions.to_json
+#   erb :"static/profile"
+# end
 
 get '/user/:user_id/question/:question_id' do
   @question = Question.find(params[:question_id])
@@ -29,10 +32,10 @@ get '/user/:user_id/question/:question_id' do
   erb :"static/question_answers"
 end
 
-get '/answer/:user_id' do
-  @all_user_answers = User.find(params[:user_id]).answers
-  erb :"static/profile"
-end
+# get '/answer/:user_id' do
+#   @all_user_answers = User.find(params[:user_id]).answers
+#   erb :"static/profile"
+# end
 
 post '/user' do
   user = User.new(params[:user])
