@@ -195,13 +195,26 @@ div#nav_menue ul li{
   display: none;
 }
 
+div#all_delete_question {
+  margin-bottom:20px;
+}
 
 div#delete_question_form {
   margin-top:20px;
   margin-left:25px;
-  height:120px;
   border:1px solid #EEEEEE;
   border-radius:5px;
   box-shadow:2px 2px 0 #EEEEEE, inset 1px 1px 0 #EEEEEE;
   background-color:white;
 }
+
+div#delete_question_form div#delete_title p{
+  margin:20px 20px;
+  font-size:30px;
+}
+
+div#delete_question_form div#delete_question {
+  margin-left:20px;
+}
+
+

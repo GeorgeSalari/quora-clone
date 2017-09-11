@@ -101,7 +101,9 @@
         <% if @all_user_questions %>
           <% @all_user_questions.each do |question| %>
             <div id="delete_question_form">
-              <%= "<p>#{question.title} </p>" %>
+              <div id="delete_title">
+                <%= "<p>#{question.title} </p>" %>
+              </div>
               <div id="delete_question" >
                 <form action="/question/<%= question.id %>" method="post">
                   <input type="hidden" name="_method" value="delete">
@@ -122,9 +124,9 @@
                 <%= "<p>#{question.title} </p>" %>
               </div>
 
-              <form action="/user/<%= current_user.id %>/question/<%= question.id %>" method="get" id='open'>
-                <input type="submit" value="Open Question">
-              </form>
+                <form action="/user/<%= current_user.id %>/question/<%= question.id %>" method="get" id='open'>
+                  <input type="submit" value="Open Question">
+                </form>
 
             </div>
           <% end %>
