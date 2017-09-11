@@ -12,4 +12,9 @@ class Answer < ActiveRecord::Base
     self.update(votes_count: self.votes_count - 1)
   end
 
+  def destroy_all
+    self.answer_votes.destroy_all
+    self.destroy
+  end
+
 end
