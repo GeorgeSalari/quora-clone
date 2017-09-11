@@ -208,7 +208,8 @@ div#all_questions div#question div#all_answers div#answer div#footer_answer_edit
   display:inline-block;
 }
 
-div#all_questions div#question div#all_answers div#answer div#footer_answer_edit_delete div#edit_delete_answers input.edit_delete_answers{
+div#all_questions div#question div#all_answers div#answer div#footer_answer_edit_delete div#edit_delete_answers input.edit_delete_answers,
+div#all_questions div#question div#all_answers div#answer div#footer_answer_edit_delete div#edit_delete_answers button {
   display:inline-block;
   width:60px;
   background-color:#3558E6;

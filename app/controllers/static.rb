@@ -70,7 +70,7 @@ end
 post '/answer' do
   answer = Answer.new(params[:answer])
   if answer.save
-    erb :"static/profile"
+    redirect "/user/#{answer.user_id}/question/#{answer.question_id}"
   else
     p "errors"
   end
@@ -132,11 +132,27 @@ post '/answer_downvote' do
   end
 end
 
-patch '/question/:id' do
-  Question.find(params[:id]).update(params[:question])
+patch '/question/:question_id' do
+  question = Question.find(params[:question_id])
+  question.update(params[:question])
+  redirect "/user/#{current_user.id}/question/#{question.id}"
 end
 
-delete '/question/:id' do
-  question = Question.find(params[:id])
+delete '/question/:question_id' do
+  question = Question.find(params[:question_id])
   question.destroy_all
+end
+
+patch '/answer/:answer_id' do
+  answer = Answer.find(params[:answer_id])
+  answer.update(content: params[:content])
+  redirect "/user/#{answer.user_id}/question/#{answer.question_id}"
+end
+
+delete '/answer/:answer_id' do
+  answer = Answer.find(params[:answer_id])
+  user_id = answer.user_id
+  question_id = answer.question_id
+  answer.destroy_all
+  redirect "/user/#{user_id}/question/#{question_id}"
 end

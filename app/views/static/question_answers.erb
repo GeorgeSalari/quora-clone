@@ -74,10 +74,9 @@
                 <div id="footer_answer_edit_delete">
 
                   <div id="edit_delete_answers" >
-                    <form>
-                      <input type="submit" value="Edit" id="edit_answer" class="edit_delete_answers">
-                    </form>
-                    <form>
+                    <button>Edit</button>
+                    <form action="/answer/<%= answer.id %>" method="post">
+                      <input type="hidden" name="_method" value="delete">
                       <input type="submit" value="Delete" id="delete_answer" class="edit_delete_answers">
                     </form>
                   </div>
@@ -85,6 +84,15 @@
                   <div id="user_answer_votes">
                     <p id="count_votes"> <%= answer.votes_count %></p>
                     <p>votes</p>
+                  </div>
+
+                  <div id="form_edit_answer">
+                    <form action="/answer/<%= answer.id %>" method="post">
+                      <input type="hidden" name="_method" value="patch">
+                      <textarea name="content"><%= answer.content %></textarea>
+                      <br>
+                      <input type="submit" value="Edit" id="edit_answer" class="edit_delete_answers">
+                    </form>
                   </div>
 
                 </div>
