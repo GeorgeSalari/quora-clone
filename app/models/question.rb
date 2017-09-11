@@ -1,8 +1,8 @@
 class Question < ActiveRecord::Base
 	# This is Sinatra! Remember to create a migration!
   validates :title, presence: true
-  has_many :answers
-  has_many :question_votes
+  has_many :answers#, dependent: :destroy -> destroy all answers if destroy question
+  has_many :question_votes#, dependent: :destroy -> destpy all question_vote if destroy question
 
   def upvote_question
     self.update(votes_count: self.votes_count + 1)
