@@ -2,7 +2,7 @@ class Answer < ActiveRecord::Base
 	# This is Sinatra! Remember to create a migration!
   validates :content, presence: true
   belongs_to :user
-  has_many :answer_votes
+  has_many :answer_votes#,dependent: :destroy -> destroy all answer_votes if destroy answer
 
   def upvote_answer
     self.update(votes_count: self.votes_count + 1)

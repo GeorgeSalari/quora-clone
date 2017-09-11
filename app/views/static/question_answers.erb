@@ -49,9 +49,9 @@
         <% if @answers %>
           <% @answers.each do |answer| %>
             <div id="answer">
-              <%= "<h4>#{answer.user.first_name}'s answer:</h4>" %>
-              <%= "<p>#{answer.content}</p>" %>
               <% if answer.user_id != current_user.id %>
+                <%= "<h4>#{answer.user.first_name}'s answer:</h4>" %>
+                <%= "<p>#{answer.content}</p>" %>
                 <div id="footer_answer">
                   <form id='upvote' action="/answer_upvote" method="post">
                     <input type="hidden" name="upvote[user_id]" value="<%= current_user.id %>">
@@ -71,10 +71,14 @@
                   </div>
                 </div>
               <% else %>
-                <div id="footer_answer_edit_delete">
+                <div class="edit_delete" >
+                  <%= "<h4>#{answer.user.first_name}'s answer:</h4>" %>
+                  <%= "<p>#{answer.content}</p>" %>
+                </div>
+                <div id="footer_answer_edit_delete" class="edit_delete">
 
-                  <div id="edit_delete_answers" >
-                    <button>Edit</button>
+                  <div id="edit_delete_answers">
+                    <button id="edit_answer">Edit</button>
                     <form action="/answer/<%= answer.id %>" method="post">
                       <input type="hidden" name="_method" value="delete">
                       <input type="submit" value="Delete" id="delete_answer" class="edit_delete_answers">
@@ -86,15 +90,14 @@
                     <p>votes</p>
                   </div>
 
-                  <div id="form_edit_answer">
-                    <form action="/answer/<%= answer.id %>" method="post">
-                      <input type="hidden" name="_method" value="patch">
-                      <textarea name="content"><%= answer.content %></textarea>
-                      <br>
-                      <input type="submit" value="Edit" id="edit_answer" class="edit_delete_answers">
-                    </form>
-                  </div>
-
+                </div>
+                <div id="form_edit_answer" class="hidden edit_delete">
+                  <form action="/answer/<%= answer.id %>" method="post">
+                    <input type="hidden" name="_method" value="patch">
+                    <textarea name="content"><%= answer.content %></textarea>
+                    <br>
+                    <input type="submit" value="Edit" class="edit_delete_answers">
+                  </form>
                 </div>
               <% end %>
             </div>
@@ -112,3 +115,5 @@
     </div>
   <% end %>
 </div>
+
+<script src="/js/question_answers.js"></script>

@@ -247,5 +247,17 @@ div#all_answers div#answer div#footer_answer_edit_delete {
   text-align:left;
 }
 
-/*div#all_questions div#question div#all_answers div#answer div#footer_answer div#edit_delete_answers
-div#all_questions div#question div#all_answers div#answer div#footer_answer div#user_answer_votes*/
+div#form_edit_answer {
+  width:100px;
+  height:100px;
+}
+
+div#form_edit_answer form {
+  margin-top:10px;
+}
+
+div#form_edit_answer textarea {
+  width:550px;
+  margin-bottom:10px;
+}
+
