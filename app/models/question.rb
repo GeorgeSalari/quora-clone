@@ -26,7 +26,21 @@ class Question < ActiveRecord::Base
     self.destroy
   end
 
-  def voted?(user) #question.voted?(current_user)
-    true or false
+  def upvoted?(user) #question.upvoted?(current_user)
+    return_value = false
+    all_votes = self.question_votes
+    all_votes.each do |vote|
+      return_value = true if vote.user_id == user && vote.action == "upvote"
+    end
+    return_value
+  end
+
+  def downvoted?(user)
+    return_value = false
+    all_votes = self.question_votes
+    all_votes.each do |vote|
+      return_value = true if vote.user_id == user && vote.action == "downvote"
+    end
+    return_value
   end
 end
