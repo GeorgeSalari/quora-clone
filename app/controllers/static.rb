@@ -30,7 +30,7 @@ end
 get '/user/:user_id/question/:question_id' do
   if logged_in?
     @question = Question.find(params[:question_id])
-    @answers = @question.answers
+    @answers = @question.answers.order(created_at: :desc)
     @question.increase_views
     erb :"static/question_answers"
   end
