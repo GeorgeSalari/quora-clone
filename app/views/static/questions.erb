@@ -33,20 +33,28 @@
               <%= "<p>#{question.content}</p>" %>
             </div>
             <div class="col-md-2">
-              <% if question.user_id != current_user.id %>
-                <form id='question_upvote' action="/question_upvote" method="post">
-                  <input type="hidden" name="upvote[user_id]" value="<%= current_user.id %>">
-                  <input type="hidden" name="upvote[question_id]" value="<%= question.id %>">
-                  <input type="hidden" name="upvote[action]" value="upvote">
-                  <button class="submit_button" type="submit"><img src="/img/upvote.png"/></button>
-                </form>
-                <form id='question_downvote' action="/question_downvote" method="post">
-                  <input type="hidden" name="downvote[user_id]" value="<%= current_user.id %>">
-                  <input type="hidden" name="downvote[question_id]" value="<%= question.id %>">
-                  <input type="hidden" name="downvote[action]" value="downvote">
-                  <button class="submit_button" type="submit"><img src="/img/downvote.png"/></button>
-                </form>
-              <% end %>
+                <% if question.user_id != current_user.id %>
+
+                <div id="question_upvote_form" >
+                  <form id='question_upvote' action="/question_upvote" method="post">
+                    <input type="hidden" name="upvote[user_id]" value="<%= current_user.id %>">
+                    <input type="hidden" name="upvote[question_id]" value="<%= question.id %>">
+                    <input type="hidden" name="upvote[action]" value="upvote">
+                    <button class="submit_button" type="submit" id="question_upvote"><img src="/img/upvote.png"/></button>
+                  </form>
+                </div>
+
+                <div id="question_downvote_form" >
+                  <form id='question_downvote' action="/question_downvote" method="post">
+                    <input type="hidden" name="downvote[user_id]" value="<%= current_user.id %>">
+                    <input type="hidden" name="downvote[question_id]" value="<%= question.id %>">
+                    <input type="hidden" name="downvote[action]" value="downvote">
+                    <button class="submit_button" type="submit" id="question_downvote"><img src="/img/downvote.png"/></button>
+                  </form>
+                </div>
+
+                <% end %>
+
             </div>
           </div>
         </div>
@@ -73,3 +81,6 @@
     <% end %>
   <% end %>
 </div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/js/question.js"></script>

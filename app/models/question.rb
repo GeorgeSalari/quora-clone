@@ -25,4 +25,8 @@ class Question < ActiveRecord::Base
     self.question_votes.destroy_all
     self.destroy
   end
+
+  def voted?(user) #question.voted?(current_user)
+    true or false
+  end
 end

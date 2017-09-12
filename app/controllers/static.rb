@@ -15,8 +15,10 @@ get '/profile' do
 end
 
 get '/question' do
-  @all_questions = Question.order("votes_count DESC")
-  erb :"static/questions"
+  if logged_in?
+    @all_questions = Question.order("votes_count DESC")
+    erb :"static/questions"
+  end
 end
 
 # get '/user/:id/question' do
@@ -26,10 +28,12 @@ end
 # end
 
 get '/user/:user_id/question/:question_id' do
-  @question = Question.find(params[:question_id])
-  @answers = @question.answers
-  @question.increase_views
-  erb :"static/question_answers"
+  if logged_in?
+    @question = Question.find(params[:question_id])
+    @answers = @question.answers
+    @question.increase_views
+    erb :"static/question_answers"
+  end
 end
 
 # get '/answer/:user_id' do
@@ -42,7 +46,7 @@ post '/user' do
   if user.save
     redirect '/'
   else
-    p user.errors
+    user.errors
   end
 end
 
@@ -52,7 +56,7 @@ post '/login' do
     session[:current_user_id] = user.id
     redirect "/profile"
   else
-    p "check password or email"
+    user.errors
   end
 end
 
@@ -66,7 +70,7 @@ post '/question' do
   if question.save
     redirect '/profile'
   else
-    p "hello you not input the title of question"
+    question.errors
   end
 end
 
@@ -75,7 +79,7 @@ post '/answer' do
   if answer.save
     redirect "/user/#{answer.user_id}/question/#{answer.question_id}"
   else
-    p "errors"
+    question.errors
   end
 end
 
@@ -138,7 +142,7 @@ end
 patch '/question/:question_id' do
   question = Question.find(params[:question_id])
   question.update(params[:question])
-  redirect "/user/#{current_user.id}/question/#{question.id}"
+  redirect "/profile"
 end
 
 delete '/question/:question_id' do
