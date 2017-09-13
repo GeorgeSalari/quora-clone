@@ -35,7 +35,7 @@
             <div class="col-md-2">
                 <% if question.user_id != current_user.id %>
 
-                  <% if !question.downvoted?(current_user.id)%>
+                  <% if !question.downvoted?(current_user.id) && !question.upvoted?(current_user.id)%>
                     <div id="question_upvote_form" >
                       <form id='question_upvote' action="/question_upvote" method="post">
                         <input type="hidden" name="upvote[user_id]" value="<%= current_user.id %>">
@@ -44,9 +44,6 @@
                         <button class="submit_button" type="submit" id="question_upvote"><img src="/img/upvote.png"/></button>
                       </form>
                     </div>
-                  <% end %>
-
-                  <% if !question.upvoted?(current_user.id)%>
                     <div id="question_downvote_form" >
                       <form id='question_downvote' action="/question_downvote" method="post">
                         <input type="hidden" name="downvote[user_id]" value="<%= current_user.id %>">
@@ -55,7 +52,23 @@
                         <button class="submit_button" type="submit" id="question_downvote"><img src="/img/downvote.png"/></button>
                       </form>
                     </div>
-                    <% end %>
+                  <% elsif !question.upvoted?(current_user.id)%>
+                    <div id="question_downvote_form" >
+                      <form id='question_downvote' action="/question_downvote" method="post">
+                        <input type="hidden" name="downvote[user_id]" value="<%= current_user.id %>">
+                        <input type="hidden" name="downvote[question_id]" value="<%= question.id %>">
+                        <input type="hidden" name="downvote[action]" value="downvote">
+                        <button class="submit_button" type="submit" id="question_downvote"><img src="/img/pressed_downvote.png"/></button>
+                      </form>
+                    </div>
+                  <% else %>
+                    <form id='question_upvote' action="/question_upvote" method="post">
+                      <input type="hidden" name="upvote[user_id]" value="<%= current_user.id %>">
+                      <input type="hidden" name="upvote[question_id]" value="<%= question.id %>">
+                      <input type="hidden" name="upvote[action]" value="upvote">
+                      <button class="submit_button" type="submit" id="question_upvote"><img src="/img/pressed_upvote.png"/></button>
+                    </form>
+                  <% end %>
                 <% end %>
 
             </div>
