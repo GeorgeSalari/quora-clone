@@ -65,21 +65,32 @@
                 <%= "<p>#{answer.content}</p>" %>
                 <div id="footer_answer">
 
-                <% if !answer.downvoted?(current_user.id) %>
+                <% if !answer.downvoted?(current_user.id) && !answer.upvoted?(current_user.id)%>
                   <form id='upvote' action="/answer_upvote" method="post">
                     <input type="hidden" name="upvote[user_id]" value="<%= current_user.id %>">
                     <input type="hidden" name="upvote[answer_id]" value="<%= answer.id %>">
                     <input type="hidden" name="upvote[action]" value="upvote">
                     <button class="submit_button" type="submit"><img src="/img/upvote.png"/></button>
                   </form>
-                <% end %>
-
-                <% if !answer.upvoted?(current_user.id) %>
                   <form id='downvote' action="/answer_downvote" method="post">
                     <input type="hidden" name="downvote[user_id]" value="<%= current_user.id %>">
                     <input type="hidden" name="downvote[answer_id]" value="<%= answer.id %>">
                     <input type="hidden" name="downvote[action]" value="downvote">
                     <button class="submit_button" type="submit"><img src="/img/downvote.png"/></button>
+                  </form>
+                <%  elsif !answer.downvoted?(current_user.id) %>
+                  <form id='upvote' action="/answer_upvote" method="post">
+                    <input type="hidden" name="upvote[user_id]" value="<%= current_user.id %>">
+                    <input type="hidden" name="upvote[answer_id]" value="<%= answer.id %>">
+                    <input type="hidden" name="upvote[action]" value="upvote">
+                    <button class="submit_button" type="submit"><img src="/img/pressed_upvote.png"/></button>
+                  </form>
+                <% else %>
+                  <form id='downvote' action="/answer_downvote" method="post">
+                    <input type="hidden" name="downvote[user_id]" value="<%= current_user.id %>">
+                    <input type="hidden" name="downvote[answer_id]" value="<%= answer.id %>">
+                    <input type="hidden" name="downvote[action]" value="downvote">
+                    <button class="submit_button" type="submit"><img src="/img/pressed_downvote.png"/></button>
                   </form>
                 <% end %>
 
