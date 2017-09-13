@@ -151,7 +151,7 @@ div#all_answers div#answer form button img{
   height:30px;
 }
 
-div#all_answers div#answer div#footer_answer div#answer_votes p#count_votes,
+div#all_answers div#answer div#footer_answer div#answer_votes p#answer_count_votes,
 div#footer_question div#question_votes p#question_count_votes,
 div#footer_question div#question_views p#question_count_views,
 div#votes_on_question_answer p#question_count_votes {
