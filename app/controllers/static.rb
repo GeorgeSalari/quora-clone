@@ -16,7 +16,7 @@ end
 
 get '/question' do
   if logged_in?
-    @all_questions = Question.order("votes_count DESC")
+    @all_questions = Question.paginate(:page => params[:page], :per_page => 10).order("votes_count DESC")
     erb :"static/questions"
   end
 end
