@@ -21,12 +21,6 @@ get '/question' do
   end
 end
 
-# get '/user/:id/question' do
-#   @all_user_questions = Question.where(user_id: params[:id])
-#   # @all_user_questions.to_json
-#   erb :"static/profile"
-# end
-
 get '/user/:user_id/question/:question_id' do
   if logged_in?
     @question = Question.find(params[:question_id])
@@ -35,11 +29,6 @@ get '/user/:user_id/question/:question_id' do
     erb :"static/question_answers"
   end
 end
-
-# get '/answer/:user_id' do
-#   @all_user_answers = User.find(params[:user_id]).answers
-#   erb :"static/profile"
-# end
 
 post '/user' do
   user = User.new(params[:user])
@@ -140,26 +129,34 @@ post '/answer_downvote' do
 end
 
 patch '/question/:question_id' do
-  question = Question.find(params[:question_id])
-  question.update(params[:question])
-  redirect "/profile"
+    question = Question.find(params[:question_id])
+    if current_user.id == question.user_id
+      question.update(params[:question])
+      redirect "/profile"
+    end
 end
 
 delete '/question/:question_id' do
   question = Question.find(params[:question_id])
-  question.destroy_all
+  if current_user.id == question.user_id
+    question.destroy_all
+  end
 end
 
 patch '/answer/:answer_id' do
   answer = Answer.find(params[:answer_id])
-  answer.update(content: params[:content])
-  redirect "/user/#{answer.user_id}/question/#{answer.question_id}"
+  if current_user.id == answer.user_id
+    answer.update(content: params[:content])
+    redirect "/user/#{answer.user_id}/question/#{answer.question_id}"
+  end
 end
 
 delete '/answer/:answer_id' do
   answer = Answer.find(params[:answer_id])
   user_id = answer.user_id
   question_id = answer.question_id
-  answer.destroy_all
-  redirect "/user/#{user_id}/question/#{question_id}"
+  if current_user.id == answer.user_id
+    answer.destroy_all
+    redirect "/user/#{user_id}/question/#{question_id}"
+  end
 end
