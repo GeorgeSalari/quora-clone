@@ -155,6 +155,7 @@ delete '/question/:question_id' do
   question = Question.find(params[:question_id])
   if current_user.id == question.user_id
     question.destroy_all
+    redirect '/profile'
   end
 end
 
