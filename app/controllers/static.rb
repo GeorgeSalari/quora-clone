@@ -74,11 +74,12 @@ end
 
 post '/question_upvote' do
   upvote = QuestionVote.find_or_initialize_by(params[:upvote])
+  downvote = QuestionVote.find_or_initialize_by(user_id: params[:upvote][:user_id], question_id: params[:upvote][:question_id], action: 'downvote')
   if upvote.id
     upvote.question.downvote_question
     upvote.destroy
     redirect '/question'
-  elsif upvote.save
+  elsif upvote.save && !downvote.id
     upvote.question.upvote_question
     redirect '/question'
   else
@@ -88,11 +89,12 @@ end
 
 post '/question_downvote' do
   downvote = QuestionVote.find_or_initialize_by(params[:downvote])
+  upvote = QuestionVote.find_or_initialize_by(user_id: params[:downvote][:user_id], question_id: params[:downvote][:question_id], action: 'upvote')
   if downvote.id
     downvote.question.upvote_question
     downvote.destroy
     redirect '/question'
-  elsif downvote.save
+  elsif downvote.save && !upvote.id
     downvote.question.downvote_question
     redirect '/question'
   else
@@ -102,11 +104,12 @@ end
 
 post '/answer_upvote' do
   upvote = AnswerVote.find_or_initialize_by(params[:upvote])
+  downvote = AnswerVote.find_or_initialize_by(user_id: params[:upvote][:user_id], question_id: params[:upvote][:question_id], action: 'downvote')
   if upvote.id
     upvote.answer.downvote_answer
     upvote.destroy
     redirect "/user/#{params[:upvote][:user_id]}/question/#{Answer.find(upvote.answer_id).question_id}"
-  elsif upvote.save
+  elsif upvote.save && !downvote.id
     upvote.answer.upvote_answer
     redirect "/user/#{params[:upvote][:user_id]}/question/#{Answer.find(upvote.answer_id).question_id}"
   else
@@ -116,11 +119,12 @@ end
 
 post '/answer_downvote' do
   downvote = AnswerVote.find_or_initialize_by(params[:downvote])
+  upvote = AnswerVote.find_or_initialize_by(user_id: params[:downvote][:user_id], question_id: params[:downvote][:question_id], action: 'upvote')
   if downvote.id
     downvote.answer.upvote_answer
     downvote.destroy
     redirect "/user/#{params[:downvote][:user_id]}/question/#{Answer.find(downvote.answer_id).question_id}"
-  elsif downvote.save
+  elsif downvote.save && !upvote.id
     downvote.answer.downvote_answer
     redirect "/user/#{params[:downvote][:user_id]}/question/#{Answer.find(downvote.answer_id).question_id}"
   else
