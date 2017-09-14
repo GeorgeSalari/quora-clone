@@ -1,9 +1,8 @@
-all_button = $('.questions');
+var all_button = $('.questions');
 
 $(all_button).submit(function(event){
   event.preventDefault();
   var question_id = $(this).data('id');
-  var action = $(this).children().last().attr('id');
   var presed_button = $(this).attr('id');
 
   switch (presed_button) {

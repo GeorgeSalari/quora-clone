@@ -134,6 +134,7 @@ div#all_answers div#answer div#footer_answer form {
 div#all_answers div#answer div#footer_answer form button,
 div#footer_question form {
   height:60px;
+  background:transparent;
 }
 
 div#all_answers div#answer form button {
