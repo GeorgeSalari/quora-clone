@@ -2,6 +2,7 @@ get '/' do
   if logged_in?
     erb :"static/profile"
   else
+    @user = User.new
     erb :"static/index"
   end
 end
@@ -31,21 +32,31 @@ get '/user/:user_id/question/:question_id' do
 end
 
 post '/user' do
-  user = User.new(params[:user])
-  if user.save
+  @user = User.new(params[:user])
+  if @user.save
     redirect '/'
   else
-    user.errors
+    @user.errors
+    erb :"static/index"
   end
 end
 
 post '/login' do
-  user = User.find_by(email: params[:email]).try(:authenticate, params[:password])
+  find_user = User.find_or_initialize_by(email: params[:email])
+  if find_user.id
+    user = find_user.try(:authenticate, params[:password])
+  end
   if user
     session[:current_user_id] = user.id
     redirect "/profile"
+  elsif find_user.id
+    @user = User.new
+    @error = "Incorect password"
+    erb :"static/index"
   else
-    user.errors
+    @user = User.new
+    @error = "Incorect email"
+    erb :"static/index"
   end
 end
 
@@ -57,9 +68,9 @@ end
 post '/question' do
   question = Question.new(params[:question])
   if question.save
-    redirect '/profile'
+    redirect "/user/#{current_user.id}/question/#{question.id}"
   else
-    question.errors
+    redirect '/profile'
   end
 end
 
@@ -68,7 +79,7 @@ post '/answer' do
   if answer.save
     redirect "/user/#{answer.user_id}/question/#{answer.question_id}"
   else
-    question.errors
+    redirect "/user/#{answer.user_id}/question/#{answer.question_id}"
   end
 end
 
@@ -104,7 +115,7 @@ end
 
 post '/answer_upvote' do
   upvote = AnswerVote.find_or_initialize_by(params[:upvote])
-  downvote = AnswerVote.find_or_initialize_by(user_id: params[:upvote][:user_id], question_id: params[:upvote][:question_id], action: 'downvote')
+  downvote = AnswerVote.find_or_initialize_by(user_id: params[:upvote][:user_id], answer_id: params[:upvote][:question_id], action: 'downvote')
   if upvote.id
     upvote.answer.downvote_answer
     upvote.destroy
@@ -119,7 +130,7 @@ end
 
 post '/answer_downvote' do
   downvote = AnswerVote.find_or_initialize_by(params[:downvote])
-  upvote = AnswerVote.find_or_initialize_by(user_id: params[:downvote][:user_id], question_id: params[:downvote][:question_id], action: 'upvote')
+  upvote = AnswerVote.find_or_initialize_by(user_id: params[:downvote][:user_id], answer_id: params[:downvote][:question_id], action: 'upvote')
   if downvote.id
     downvote.answer.upvote_answer
     downvote.destroy
