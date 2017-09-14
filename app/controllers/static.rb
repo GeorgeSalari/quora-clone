@@ -34,7 +34,7 @@ end
 post '/user' do
   @user = User.new(params[:user])
   if @user.save
-    redirect '/'
+    redirect '/profile'
   else
     @user.errors
     erb :"static/index"
